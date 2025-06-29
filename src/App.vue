@@ -7,6 +7,7 @@ const name = ref("");
 
 async function greet() {
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+  console.log('Nombre'+name.value);
   greetMsg.value = await invoke("greet", { name: name.value });
 }
 </script>
@@ -17,13 +18,13 @@ async function greet() {
 
     <div class="row">
       <a href="https://vitejs.dev" target="_blank">
-        <img src="/vite.svg" class="logo vite" alt="Vite logo" />
+        <img  class="logo vite" alt="Vite logo" />
       </a>
       <a href="https://tauri.app" target="_blank">
-        <img src="/tauri.svg" class="logo tauri" alt="Tauri logo" />
+        <img class="logo tauri" alt="Tauri logo" />
       </a>
       <a href="https://vuejs.org/" target="_blank">
-        <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
+        <img  class="logo vue" alt="Vue logo" />
       </a>
     </div>
     <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
