@@ -1,14 +1,37 @@
 <template>
-  <div>
-    <h3>Canvas Area</h3>
-    <!-- Aquí irá el canvas con vue-konva -->
-  </div>
+  <v-stage :config="stageConfig">
+    <v-layer>
+      <v-rect
+        v-for="elemento in store.elements"
+        :key="elemento.id"
+        :config="{
+          x: elemento.x,
+          y: elemento.y,
+          width: elemento.width,
+          height: elemento.height,
+          fill: elemento.color || 'skyblue',
+          draggable: true
+        }"
+        @dragend="onDragEnd($event, elemento.id)"
+        @click="store.selectElement(elemento.id)"
+      />
+    </v-layer>
+  </v-stage>
 </template>
 
 <script setup lang="ts">
-// Por ahora vacío, luego vendrá la lógica de vue-konva
-</script>
+import { useReportStore } from '../store/report.store'
+import { computed } from 'vue'
 
-<style scoped>
-/* Estilos si necesitas */
-</style>
+const store = useReportStore()
+
+const stageConfig = computed(() => ({
+  width: window.innerWidth * 0.6,
+  height: window.innerHeight
+}))
+
+function onDragEnd(event: any, id: string) {
+  const shape = event.target
+  store.updateElement(id, { x: shape.x(), y: shape.y() })
+}
+</script>
